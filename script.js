@@ -1,5 +1,22 @@
 // PGA Swindle - Golf Scoring App JavaScript
 
+// Debug function for GitHub Pages
+function debugLog(message, data = null) {
+    if (console && console.log) {
+        console.log('[PGA Swindle]', message, data || '');
+    }
+}
+
+// Error handling wrapper
+function safeExecute(fn, context = 'unknown') {
+    try {
+        return fn();
+    } catch (error) {
+        debugLog(`Error in ${context}:`, error);
+        return null;
+    }
+}
+
 class PGASwindle {
     constructor() {
         this.players = 50;
@@ -2386,9 +2403,20 @@ class PGASwindle {
     // === END LEADERBOARD FUNCTIONALITY ===
 
     // Scorecard functionality removed
+    
+    getCurrentWeek() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const week = Math.ceil(((now - new Date(year, 0, 1)) / 86400000 + 1) / 7);
+        return `${year}-W${week}`;
+    }
 }
 
 // Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    window.pgaSwindle = new PGASwindle();
+    safeExecute(() => {
+        debugLog('Initializing PGA Swindle app');
+        window.pgaSwindle = new PGASwindle();
+        debugLog('PGA Swindle app initialized successfully');
+    }, 'app initialization');
 });
