@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prize Distribution Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c5530;
+            margin-bottom: 30px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        th {
+            background-color: #2c5530;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #1a3319;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        .week-number {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c5530;
+            min-width: 50px;
+        }
+        
+        .money-input {
+            width: 80px;
+            padding: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .money-input:focus {
+            outline: none;
+            border-color: #2c5530;
+            box-shadow: 0 0 3px rgba(44, 85, 48, 0.3);
+        }
+        
+        .total-cell {
+            background-color: #f0f8ff;
+            font-weight: bold;
+        }
+        
+        .total-input {
+            background-color: #f0f8ff;
+            font-weight: bold;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .btn {
+            background-color: #2c5530;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background-color: #1a3319;
+        }
+        
+        .btn:active {
+            background-color: #28a745;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .money-input {
+                width: 60px;
+                font-size: 11px;
+            }
+            
+            th, td {
+                padding: 6px 4px;
+                font-size: 12px;
+            }
+            
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .controls {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+                border: none;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            .money-input {
+                border: none;
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Prize Distribution Table</h1>
+        
+        <div class="controls">
+            <button class="btn" id="saveBtn">💾 Save Data</button>
+            <button class="btn" id="loadBtn">📂 Load Data</button>
+            <button class="btn" id="clearBtn">🗑️ Clear All</button>
+            <button class="btn" id="exportBtn">📄 Export CSV</button>
+            <button class="btn" onclick="window.print()">🖨️ Print</button>
+        </div>
+        
+        <div class="table-container">
+            <table id="prizeTable">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">Week</th>
+                        <th style="width: 100px;">Prize Pot</th>
+                        <th style="width: 100px;">1st</th>
+                        <th style="width: 100px;">2nd</th>
+                        <th style="width: 100px;">3rd</th>
+                        <th style="width: 100px;">4th</th>
+                        <th style="width: 100px;">5th</th>
+                        <th style="width: 100px;">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="prizeTableBody">
+                    <!-- Rows will be generated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        class PrizeTable {
+            constructor() {
+                this.data = {};
+                this.init();
+            }
+
+            init() {
+                this.generateTable();
+                this.attachEventListeners();
+                this.loadData();
+            }
+
+            generateTable() {
+                const tbody = document.getElementById('prizeTableBody');
+                tbody.innerHTML = '';
+
+                for (let week = 1; week <= 50; week++) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="week-number">${week}</td>
+                        <td>
+                            <input type="text" class="money-input prize-pot" data-week="${week}" data-column="prizePot" placeholder="£0.00">
+                        </td>
+                        <td>
+                            <input type="text" class="money-input" data-week="${week}" data-column="first" placeholder="£0.00">
+                        </td>
+                        <td>
+                            <input type="text" class="money-input" data-week="${week}" data-column="second" placeholder="£0.00">
+                        </td>
+                        <td>
+                            <input type="text" class="money-input" data-week="${week}" data-column="third" placeholder="£0.00">
+                        </td>
+                        <td>
+                            <input type="text" class="money-input" data-week="${week}" data-column="fourth" placeholder="£0.00">
+                        </td>
+                        <td>
+                            <input type="text" class="money-input" data-week="${week}" data-column="fifth" placeholder="£0.00">
+                        </td>
+                        <td class="total-cell">
+                            <input type="text" class="money-input total-input" data-week="${week}" data-column="total" placeholder="£0.00" readonly>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            }
+
+            attachEventListeners() {
+                // Input event listeners for automatic calculation
+                document.addEventListener('input', (e) => {
+                    if (e.target.classList.contains('money-input') && !e.target.readOnly) {
+                        this.handleInput(e.target);
+                    }
+                });
+
+                // Button event listeners
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveData());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadData());
+                document.getElementById('clearBtn').addEventListener('click', () => this.clearData());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportCSV());
+
+                // Auto-save on input change
+                document.addEventListener('input', (e) => {
+                    if (e.target.classList.contains('money-input')) {
+                        setTimeout(() => this.autoSave(), 1000);
+                    }
+                });
+            }
+
+            handleInput(input) {
+                const week = input.dataset.week;
+                const column = input.dataset.column;
+                let value = input.value.trim();
+
+                // Format currency input
+                if (value && column !== 'total') {
+                    // Remove existing currency symbols and clean the input
+                    value = value.replace(/[£$€,]/g, '');
+                    const numValue = parseFloat(value);
+                    
+                    if (!isNaN(numValue) && numValue >= 0) {
+                        input.value = `£${numValue.toFixed(2)}`;
+                        this.data[week] = this.data[week] || {};
+                        this.data[week][column] = numValue;
+                    } else {
+                        input.value = '';
+                        if (this.data[week]) {
+                            delete this.data[week][column];
+                        }
+                    }
+                } else if (!value) {
+                    // Clear the data if input is empty
+                    if (this.data[week]) {
+                        delete this.data[week][column];
+                    }
+                }
+
+                // Calculate and update total
+                this.updateTotal(week);
+            }
+
+            updateTotal(week) {
+                const weekData = this.data[week] || {};
+                const total = (weekData.first || 0) + (weekData.second || 0) + 
+                             (weekData.third || 0) + (weekData.fourth || 0) + (weekData.fifth || 0);
+                
+                const totalInput = document.querySelector(`input[data-week="${week}"][data-column="total"]`);
+                if (totalInput) {
+                    totalInput.value = total > 0 ? `£${total.toFixed(2)}` : '';
+                }
+
+                // Store total in data
+                if (this.data[week]) {
+                    this.data[week].total = total;
+                }
+            }
+
+            saveData() {
+                localStorage.setItem('prizeTableData', JSON.stringify(this.data));
+                this.showMessage('✅ Data saved successfully!', 'success');
+            }
+
+            loadData() {
+                const savedData = localStorage.getItem('prizeTableData');
+                if (savedData) {
+                    this.data = JSON.parse(savedData);
+                    this.populateTable();
+                    this.showMessage('✅ Data loaded successfully!', 'success');
+                } else {
+                    this.showMessage('ℹ️ No saved data found.', 'info');
+                }
+            }
+
+            populateTable() {
+                // Clear all inputs first
+                document.querySelectorAll('.money-input').forEach(input => {
+                    input.value = '';
+                });
+
+                // Populate with saved data
+                Object.keys(this.data).forEach(week => {
+                    const weekData = this.data[week];
+                    Object.keys(weekData).forEach(column => {
+                        const input = document.querySelector(`input[data-week="${week}"][data-column="${column}"]`);
+                        if (input && weekData[column] > 0) {
+                            input.value = `£${weekData[column].toFixed(2)}`;
+                        }
+                    });
+                });
+            }
+
+            clearData() {
+                if (confirm('Are you sure you want to clear all data? This cannot be undone!')) {
+                    this.data = {};
+                    document.querySelectorAll('.money-input').forEach(input => {
+                        input.value = '';
+                    });
+                    localStorage.removeItem('prizeTableData');
+                    this.showMessage('✅ All data cleared!', 'success');
+                }
+            }
+
+            autoSave() {
+                this.saveData();
+            }
+
+            exportCSV() {
+                let csv = 'Week,Prize Pot,1st,2nd,3rd,4th,5th,Total\n';
+                
+                for (let week = 1; week <= 50; week++) {
+                    const weekData = this.data[week] || {};
+                    csv += `${week},`;
+                    csv += `${weekData.prizePot || 0},`;
+                    csv += `${weekData.first || 0},`;
+                    csv += `${weekData.second || 0},`;
+                    csv += `${weekData.third || 0},`;
+                    csv += `${weekData.fourth || 0},`;
+                    csv += `${weekData.fifth || 0},`;
+                    csv += `${weekData.total || 0}\n`;
+                }
+
+                // Download CSV
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `prize-distribution-${new Date().toISOString().slice(0, 10)}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                this.showMessage('✅ CSV exported successfully!', 'success');
+            }
+
+            showMessage(message, type) {
+                // Create a temporary message element
+                const messageDiv = document.createElement('div');
+                messageDiv.textContent = message;
+                messageDiv.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    color: white;
+                    font-weight: bold;
+                    z-index: 1000;
+                    ${type === 'success' ? 'background-color: #28a745;' : 'background-color: #17a2b8;'}
+                `;
+                
+                document.body.appendChild(messageDiv);
+                
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 3000);
+            }
+        }
+
+        // Initialize the table when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new PrizeTable();
+        });
+    </script>
+</body>
+</html>

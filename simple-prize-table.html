@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prize Distribution Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c5530;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            border: 2px solid #2c5530;
+        }
+        
+        th {
+            background-color: #2c5530;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #1a3319;
+        }
+        
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        .week-number {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c5530;
+            width: 80px;
+        }
+        
+        .money-input {
+            width: 90px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .total-input {
+            background-color: #f0f8ff;
+            font-weight: bold;
+        }
+        
+        /* Print styles */
+        @media print {
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Prize Distribution Table</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Prize Pot</th>
+                    <th>1st</th>
+                    <th>2nd</th>
+                    <th>3rd</th>
+                    <th>4th</th>
+                    <th>5th</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="week-number">1</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">2</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">3</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">4</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">5</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">6</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">7</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">8</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">9</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">10</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">11</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">12</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">13</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">14</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">15</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">16</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">17</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">18</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">19</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">20</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">21</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">22</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">23</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">24</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">25</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">26</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">27</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">28</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">29</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">30</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">31</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">32</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">33</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">34</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">35</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">36</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">37</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">38</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">39</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">40</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">41</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">42</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">43</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">44</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">45</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">46</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">47</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">48</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">49</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+                <tr><td class="week-number">50</td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input" placeholder="£0.00"></td><td><input type="text" class="money-input total-input" placeholder="£0.00"></td></tr>
+            </tbody>
+        </table>
+        
+        <p style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
+            You can print this page (Ctrl+P) to save a physical copy or use your browser's print-to-PDF feature to save as PDF.
+        </p>
+    </div>
+</body>
+</html>

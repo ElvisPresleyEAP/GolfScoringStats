@@ -1,0 +1,836 @@
+/* PGA Swindle - Golf Scoring App Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #2c5530 0%, #4a7c4e 50%, #6b8e6b 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: #2c5530;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Tab Navigation Styles */
+.tab-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.tab-button {
+    padding: 12px 24px;
+    background: #f8f9fa;
+    color: #2c5530;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border-bottom: none;
+    position: relative;
+    bottom: -2px;
+}
+
+.tab-button:hover {
+    background: #e8f5e8;
+    border-color: #4a7c4e;
+}
+
+.tab-button.active {
+    background: #4a7c4e;
+    color: white;
+    border-color: #4a7c4e;
+    box-shadow: 0 4px 12px rgba(74, 124, 78, 0.3);
+}
+
+/* Tab Content Styles */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.controls label {
+    font-weight: bold;
+    color: #2c5530;
+}
+
+.controls select {
+    padding: 8px 12px;
+    border: 2px solid #4a7c4e;
+    border-radius: 5px;
+    background: white;
+    color: #333;
+    font-size: 14px;
+}
+
+.controls button {
+    padding: 10px 15px;
+    background: #4a7c4e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background: #2c5530;
+}
+
+/* Specific button colors */
+#whatsappButton {
+    background: #25D366;
+}
+
+#whatsappButton:hover {
+    background: #1da851;
+}
+
+#emailButton {
+    background: #337ab7;
+}
+
+#emailButton:hover {
+    background: #286090;
+}
+
+.table-container {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    max-height: 70vh; /* Limit height to enable vertical scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 2000px; /* Ensure horizontal scrolling for many columns */
+}
+
+th, td {
+    padding: 4px 3px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 11px;
+}
+
+thead th {
+    background: #2c5530;
+    color: white;
+    font-weight: bold;
+    position: sticky;
+    z-index: 10;
+}
+
+/* Date row - first sticky row at top */
+.date-row th {
+    background: #4a7c4e;
+    position: sticky;
+    top: 0;
+    z-index: 12;
+}
+
+/* Week row - second sticky row below date row */
+.week-row th {
+    background: #2c5530;
+    position: sticky;
+    top: 32px; /* Height of date row approximately */
+    z-index: 11;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+tbody tr:hover {
+    background: #e8f5e8;
+}
+
+.player-number {
+    font-weight: bold;
+    background: #e8f5e8;
+    color: #2c5530;
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    min-width: 100px;
+    padding: 4px;
+}
+
+.player-name-input {
+    width: 70px;
+    padding: 2px;
+    border: 1px solid #4a7c4e;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #2c5530;
+    background: #f8fff8;
+    text-align: center;
+    font-size: 13px;
+}
+
+.player-name-input:focus {
+    border-color: #2c5530;
+    outline: none;
+    box-shadow: 0 0 5px rgba(44, 85, 48, 0.3);
+}
+
+.score-input {
+    width: 35px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 11px;
+    color: #000;
+    background: white;
+}
+
+.score-input:focus {
+    border-color: #4a7c4e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 124, 78, 0.3);
+}
+
+.best-score {
+    font-weight: bold !important;
+    color: #dc3545 !important;
+    background: #ffe6e6 !important;
+}
+
+.other-score {
+    font-weight: bold !important;
+    color: #000 !important;
+    background: #f8f9fa !important;
+}
+
+.date-input {
+    width: 60px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 8px;
+    background: white;
+}
+
+.total-column {
+    background: #f0f8f0;
+    font-weight: bold;
+    color: #2c5530;
+}
+
+.investment-column {
+    background: #fff3cd;
+    color: #856404;
+    font-weight: bold;
+}
+
+tfoot td {
+    background: #2c5530;
+    color: white;
+    font-weight: bold;
+}
+
+/* Week header styling */
+.week-header {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    min-width: 25px;
+    max-width: 25px;
+    padding: 4px 2px;
+}
+
+/* Best scores column */
+.best-scores-display {
+    max-width: 80px;
+    font-size: 8px;
+    line-height: 1.1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    th, td {
+        padding: 6px 4px;
+        font-size: 12px;
+    }
+    
+    .score-input {
+        width: 50px;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white;
+    }
+    
+    .container {
+        max-width: none;
+    }
+    
+    .controls {
+        display: none;
+    }
+    
+    table {
+        font-size: 10px;
+    }
+    
+    .best-score {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        text-decoration: underline;
+    }
+}
+
+/* Money Tab Styles */
+.money-container {
+    padding: 20px;
+}
+
+.money-controls {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+}
+
+.money-controls h3 {
+    color: #2c5530;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.money-controls p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Money Table Styles */
+#moneyTable {
+    min-width: auto;
+}
+
+.money-header-row th {
+    background: #d4a853;
+    color: white;
+    font-weight: bold;
+    padding: 12px 8px;
+}
+
+.money-input {
+    width: 80px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 12px;
+    background: #fff;
+}
+
+.money-input:focus {
+    border-color: #d4a853;
+    outline: none;
+    box-shadow: 0 0 5px rgba(212, 168, 83, 0.3);
+}
+
+.money-total {
+    font-weight: bold;
+    color: #d4a853;
+    background: #fefbf3;
+    padding: 8px;
+}
+
+/* Swindle Prizes Tab Styles */
+.prizes-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.prizes-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+}
+
+.prizes-header h3 {
+    color: #2c5530;
+    margin-bottom: 10px;
+    font-size: 1.8em;
+}
+
+.prizes-header p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+.prize-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.prize-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e0e0e0;
+}
+
+.prize-section h4 {
+    color: #2c5530;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8f5e8;
+}
+
+.prize-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.prize-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.prize-item label {
+    font-weight: bold;
+    color: #2c5530;
+    flex: 1;
+    font-size: 13px;
+}
+
+.prize-winner-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex: 2;
+}
+
+.prize-input {
+    width: 100px;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 13px;
+    background: #fff;
+}
+
+.winner-input {
+    width: 120px;
+    padding: 6px 8px;
+    border: 1px solid #d4a853;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 13px;
+    background: #fffbf3;
+    color: #2c5530;
+    font-style: italic;
+}
+
+.prize-input:focus {
+    border-color: #4a7c4e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 124, 78, 0.3);
+}
+
+.winner-input:focus {
+    border-color: #d4a853;
+    outline: none;
+    box-shadow: 0 0 5px rgba(212, 168, 83, 0.3);
+    background: #fff9e6;
+    font-style: normal;
+}
+
+.prize-summary {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #4a7c4e;
+}
+
+.prize-summary h4 {
+    color: #2c5530;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    text-align: center;
+    border-bottom: 2px solid #4a7c4e;
+    padding-bottom: 10px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-item label {
+    font-weight: bold;
+    color: #2c5530;
+    font-size: 14px;
+}
+
+.summary-value {
+    font-weight: bold;
+    color: #4a7c4e;
+    font-size: 16px;
+    background: #f8fff8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #e8f5e8;
+}
+
+.total-summary {
+    border-bottom: none;
+    border-top: 3px solid #4a7c4e;
+    padding-top: 15px;
+    margin-top: 10px;
+    background: #f8fff8;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.total-summary label {
+    font-size: 16px;
+    color: #2c5530;
+}
+
+.total-summary .summary-value {
+    font-size: 20px;
+    color: #2c5530;
+    background: #e8f5e8;
+    border: 2px solid #4a7c4e;
+    font-weight: bold;
+}
+
+/* Responsive adjustments for prizes tab */
+@media (max-width: 768px) {
+    .prize-categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .prize-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+    }
+    
+    .prize-winner-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .prize-input,
+    .winner-input {
+        width: 100%;
+    }
+    
+    .winner-input {
+        text-align: center;
+    }
+}
+
+.money-player-name {
+    background: #f8f9fa;
+    color: #2c5530;
+    font-weight: bold;
+    min-width: 120px;
+}
+
+/* === LEADERBOARD STYLES === */
+
+.leaderboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.leaderboard-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.leaderboard-header h3 {
+    color: #2c5530;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.leaderboard-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+.leaderboard-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.week-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.week-selector label {
+    font-weight: bold;
+    color: #2c5530;
+}
+
+.week-selector select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+
+.record-win-btn, .clear-leaderboard-btn {
+    background: #2c5530;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.record-win-btn:hover {
+    background: #1a3319;
+}
+
+.clear-leaderboard-btn {
+    background: #dc3545;
+}
+
+.clear-leaderboard-btn:hover {
+    background: #c82333;
+}
+
+.leaderboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #2c5530, #4a7c4e);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.stat-card h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.winner-display {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+#leaderboardTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    min-width: auto;
+}
+
+#leaderboardTable th {
+    background: #2c5530;
+    color: white;
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#leaderboardTable td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+#leaderboardTable tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.win-history-section {
+    margin-top: 40px;
+}
+
+.win-history-section h4 {
+    color: #2c5530;
+    margin-bottom: 15px;
+}
+
+.history-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.history-controls select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+
+.win-history-grid {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    background: #fafafa;
+}
+
+.win-history-item {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.win-history-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive design for leaderboard */
+@media (max-width: 768px) {
+    .leaderboard-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .leaderboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .history-controls {
+        flex-direction: column;
+    }
+    
+    #leaderboardTable {
+        font-size: 12px;
+    }
+    
+    #leaderboardTable th,
+    #leaderboardTable td {
+        padding: 8px 4px;
+    }
+}
+
+/* === END LEADERBOARD STYLES === */
