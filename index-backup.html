@@ -7,52 +7,27 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>PGA Swindle - Golf Scoring App</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* Complete inline CSS for GitHub Pages */
+        /* Critical inline CSS for GitHub Pages compatibility */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif !important; background: linear-gradient(135deg, #2c5530 0%, #4a7c4e 50%, #6b8e6b 100%) !important; min-height: 100vh !important; color: #333 !important; }
-        .container { max-width: 100% !important; margin: 0 auto !important; padding: 20px !important; }
-        header { text-align: center !important; margin-bottom: 30px !important; background: rgba(255, 255, 255, 0.95) !important; padding: 20px !important; border-radius: 15px !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important; }
-        header h1 { color: #2c5530 !important; font-size: 2.5em !important; margin-bottom: 15px !important; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1) !important; }
-        .tab-navigation { display: flex !important; justify-content: center !important; gap: 10px !important; margin: 15px 0 !important; border-bottom: 2px solid #e0e0e0 !important; padding-bottom: 10px !important; }
-        .tab-button { padding: 12px 24px !important; background: #f8f9fa !important; color: #2c5530 !important; border: 2px solid #e0e0e0 !important; border-radius: 8px 8px 0 0 !important; cursor: pointer !important; font-weight: bold !important; font-size: 14px !important; transition: all 0.3s ease !important; border-bottom: none !important; position: relative !important; bottom: -2px !important; }
-        .tab-button:hover { background: #e8f5e8 !important; border-color: #4a7c4e !important; }
-        .tab-button.active { background: #4a7c4e !important; color: white !important; border-color: #4a7c4e !important; box-shadow: 0 4px 12px rgba(74, 124, 78, 0.3) !important; }
-        .tab-content { display: none !important; }
-        .tab-content.active { display: block !important; }
-        .controls { display: flex !important; justify-content: center !important; align-items: center !important; gap: 15px !important; flex-wrap: wrap !important; }
-        .controls label { font-weight: bold !important; color: #2c5530 !important; }
-        .controls select { padding: 8px 12px !important; border: 2px solid #4a7c4e !important; border-radius: 5px !important; background: white !important; color: #333 !important; font-size: 14px !important; }
-        .controls button { padding: 10px 15px !important; background: #4a7c4e !important; color: white !important; border: none !important; border-radius: 5px !important; cursor: pointer !important; font-weight: bold !important; transition: background-color 0.3s !important; }
-        .controls button:hover { background: #2c5530 !important; }
-        .table-container { background: white !important; border-radius: 15px !important; overflow: hidden !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important; overflow-x: auto !important; max-height: 70vh !important; overflow-y: auto !important; }
-        table { width: 100% !important; border-collapse: collapse !important; min-width: 2000px !important; }
-        th, td { padding: 4px 3px !important; text-align: center !important; border: 1px solid #ddd !important; font-size: 11px !important; }
-        thead th { background: #2c5530 !important; color: white !important; font-weight: bold !important; position: sticky !important; z-index: 10 !important; }
-        .date-row th { background: #4a7c4e !important; position: sticky !important; top: 0 !important; z-index: 12 !important; }
-        .week-row th { background: #2c5530 !important; position: sticky !important; top: 32px !important; z-index: 11 !important; }
-        .player-name-input { width: 70px !important; padding: 2px !important; border: 1px solid #4a7c4e !important; border-radius: 3px !important; font-weight: bold !important; color: #2c5530 !important; background: #f8fff8 !important; text-align: center !important; font-size: 13px !important; }
-        .score-input { width: 35px !important; padding: 2px !important; border: 1px solid #ccc !important; border-radius: 3px !important; text-align: center !important; font-size: 11px !important; color: #000 !important; background: white !important; }
-        .best-score { font-weight: bold !important; color: #dc3545 !important; background: #ffe6e6 !important; }
-        .other-score { font-weight: bold !important; color: #000 !important; background: #f8f9fa !important; }
-        .money-container { padding: 20px !important; }
-        .money-controls { text-align: center !important; margin-bottom: 20px !important; padding: 20px !important; background: #f8f9fa !important; border-radius: 10px !important; border: 2px solid #e0e0e0 !important; }
-        .money-controls h3 { color: #2c5530 !important; margin-bottom: 10px !important; font-size: 1.5em !important; }
-        .money-header-row th { background: #d4a853 !important; color: white !important; font-weight: bold !important; padding: 12px 8px !important; }
-        .money-input { width: 80px !important; padding: 4px !important; border: 1px solid #ccc !important; border-radius: 3px !important; text-align: center !important; font-size: 12px !important; background: #fff !important; }
-        .money-total { font-weight: bold !important; color: #d4a853 !important; background: #fefbf3 !important; padding: 8px !important; }
-        .prizes-container { max-width: 1200px !important; margin: 0 auto !important; padding: 20px !important; }
-        .prizes-header { text-align: center !important; margin-bottom: 30px !important; padding: 20px !important; background: #f8f9fa !important; border-radius: 10px !important; border: 2px solid #e0e0e0 !important; }
-        .prizes-header h3 { color: #2c5530 !important; margin-bottom: 10px !important; font-size: 1.8em !important; }
-        .prize-categories { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 20px !important; margin-bottom: 30px !important; }
-        .prize-section { background: white !important; padding: 20px !important; border-radius: 10px !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important; border: 2px solid #e0e0e0 !important; }
-        .prize-section h4 { color: #2c5530 !important; margin-bottom: 15px !important; font-size: 1.2em !important; padding-bottom: 8px !important; border-bottom: 2px solid #e8f5e8 !important; }
-        .prize-inputs { display: flex !important; flex-direction: column !important; gap: 12px !important; }
-        .prize-item { display: flex !important; justify-content: space-between !important; align-items: center !important; gap: 10px !important; }
-        .prize-item label { font-weight: bold !important; color: #2c5530 !important; flex: 1 !important; font-size: 13px !important; }
-        .prize-winner-row { display: flex !important; gap: 8px !important; align-items: center !important; flex: 2 !important; }
-        .prize-input { width: 100px !important; padding: 6px 8px !important; border: 1px solid #ccc !important; border-radius: 5px !important; text-align: center !important; font-size: 13px !important; background: #fff !important; }
-        .winner-input { width: 120px !important; padding: 6px 8px !important; border: 1px solid #d4a853 !important; border-radius: 5px !important; text-align: left !important; font-size: 13px !important; background: #fffbf3 !important; color: #2c5530 !important; font-style: italic !important; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #2c5530 0%, #4a7c4e 50%, #6b8e6b 100%); min-height: 100vh; color: #333; }
+        .container { max-width: 100%; margin: 0 auto; padding: 20px; }
+        header { text-align: center; margin-bottom: 30px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+        header h1 { color: #2c5530; font-size: 2.5em; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); }
+        .tab-navigation { display: flex; justify-content: center; gap: 10px; margin: 15px 0; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
+        .tab-button { padding: 12px 24px; background: #f8f9fa; color: #2c5530; border: 2px solid #e0e0e0; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.3s ease; border-bottom: none; position: relative; bottom: -2px; }
+        .tab-button:hover { background: #e8f5e8; border-color: #4a7c4e; }
+        .tab-button.active { background: #4a7c4e; color: white; border-color: #4a7c4e; box-shadow: 0 4px 12px rgba(74, 124, 78, 0.3); }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        .controls { display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .controls button { padding: 10px 15px; background: #4a7c4e; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s; }
+        .controls button:hover { background: #2c5530; }
+        .table-container { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); overflow-x: auto; max-height: 70vh; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 2000px; }
+        th, td { padding: 4px 3px; text-align: center; border: 1px solid #ddd; font-size: 11px; }
+        thead th { background: #2c5530; color: white; font-weight: bold; position: sticky; z-index: 10; }
     </style>
 </head>
 <body>
