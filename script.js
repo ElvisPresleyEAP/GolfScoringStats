@@ -34,6 +34,7 @@ class PGASwindle {
         this.scorecardData = {}; // Store detailed scorecard data for each player/week
         this.weeklyWins = {}; // Store weekly wins for leaderboard tracking - START EMPTY
         this.currentWeek = this.getCurrentWeek(); // Current week for leaderboard
+        this.cellColors = {}; // Store custom cell colors
         
         this.init();
     }
@@ -367,6 +368,19 @@ class PGASwindle {
         document.getElementById('clearMoneyData').addEventListener('click', () => this.clearMoneyData());
         document.getElementById('clearPrizesData').addEventListener('click', () => this.clearPrizesData());
         
+        // Export/Import buttons for prizes
+        document.getElementById('exportPrizesData').addEventListener('click', () => this.exportPrizesData());
+        document.getElementById('importPrizesData').addEventListener('click', () => this.importPrizesData());
+        
+        // File input change event for import
+        document.getElementById('importPrizesFile').addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                this.handleImportFile(e.target.files[0]);
+                // Reset file input for repeated imports
+                e.target.value = '';
+            }
+        });
+        
         // Sort buttons (using event delegation since they're created dynamically)
         document.addEventListener('click', (e) => {
             if (e.target && e.target.id === 'sortByBestScores') {
@@ -411,6 +425,22 @@ class PGASwindle {
         document.addEventListener('change', (e) => {
             if (e.target.classList.contains('date-input')) {
                 this.handleDateInput(e.target);
+            }
+        });
+
+        // Cell color customization - right-click context menu
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.classList.contains('score-input')) {
+                e.preventDefault();
+                this.showColorPicker(e.target, e.pageX, e.pageY);
+            }
+        });
+
+        // Hide color picker when clicking elsewhere
+        document.addEventListener('click', (e) => {
+            const colorPicker = document.getElementById('colorPicker');
+            if (colorPicker && !colorPicker.contains(e.target) && !e.target.classList.contains('score-input')) {
+                colorPicker.remove();
             }
         });
 
@@ -889,6 +919,7 @@ class PGASwindle {
         
         this.updateGrandTotals();
         this.highlightBestScores();
+        this.applyCellColors(); // Apply custom cell colors after calculations
     }
 
     highlightBestScores() {
@@ -953,7 +984,8 @@ class PGASwindle {
             prizeWinners: this.prizeWinners,
             weeklyPrizeData: this.weeklyPrizeData,
             weeklyWins: this.weeklyWins,
-            currentWeek: this.currentWeek
+            currentWeek: this.currentWeek,
+            cellColors: this.cellColors
         };
         
         localStorage.setItem('pgaSwindleData', JSON.stringify(data));
@@ -985,6 +1017,7 @@ class PGASwindle {
             this.prizeValues = parsed.prizeValues || {};
             this.prizeWinners = parsed.prizeWinners || {};
             this.weeklyPrizeData = parsed.weeklyPrizeData || {};
+            this.cellColors = parsed.cellColors || {};
             // Keep leaderboard empty - don't load weeklyWins from saved data
             this.weeklyWins = {};
             this.currentWeek = this.getCurrentWeek(); // Always use current week, not saved
@@ -1090,11 +1123,13 @@ class PGASwindle {
             this.weeklyPrizeData = {};
             this.weeklyWins = {};
             this.currentWeek = this.getCurrentWeek();
+            this.cellColors = {};
             
-            // Clear all inputs
+            // Clear all inputs and cell colors
             document.querySelectorAll('.score-input').forEach(input => {
                 input.value = '';
                 input.classList.remove('best-score', 'other-score');
+                input.style.backgroundColor = ''; // Clear custom background colors
             });
             
             document.querySelectorAll('.date-input').forEach(input => {
@@ -1165,18 +1200,20 @@ class PGASwindle {
 
     // Clear only scores-related data
     clearScoresData() {
-        if (confirm('Are you sure you want to clear all scores data? This will clear scores, dates, player names, and headers only. Money and prize data will be preserved.')) {
+        if (confirm('Are you sure you want to clear all scores data? This will clear scores, dates, player names, headers, and cell colors only. Money and prize data will be preserved.')) {
             // Clear scores-related data
             this.scores = {};
             this.dates = {};
             this.playerNames = {};
             this.customHeaders = {};
             this.bestScoreCount = 10;
+            this.cellColors = {};
             
-            // Clear score inputs
+            // Clear score inputs and cell colors
             document.querySelectorAll('.score-input').forEach(input => {
                 input.value = '';
                 input.classList.remove('best-score', 'other-score');
+                input.style.backgroundColor = ''; // Clear custom background colors
             });
             
             // Clear date inputs
@@ -1244,11 +1281,11 @@ class PGASwindle {
 
     // Clear only prize-related data
     clearPrizesData() {
-        if (confirm('Are you sure you want to clear all prize data? This will clear prize values, winner names, and weekly prize data only. Scores and money data will be preserved.')) {
-            // Clear prize-related data
+        if (confirm('Are you sure you want to clear all prize data? This will clear prize values and winner names only. Weekly Prize Distribution Tracker data will be preserved.')) {
+            // Clear prize-related data (but preserve weeklyPrizeData)
             this.prizeValues = {};
             this.prizeWinners = {};
-            this.weeklyPrizeData = {};
+            // NOTE: weeklyPrizeData is NOT cleared to maintain permanent tracking
             
             // Clear prize inputs
             document.querySelectorAll('.prize-input').forEach(input => {
@@ -1260,21 +1297,133 @@ class PGASwindle {
                 input.value = '';
             });
             
-            // Clear weekly prize inputs
-            document.querySelectorAll('.weekly-prize-input').forEach(input => {
-                input.value = '';
-            });
-            
-            // Reset all weekly totals
-            document.querySelectorAll('.weekly-total').forEach(cell => {
-                cell.textContent = '£0.00';
-            });
+            // DO NOT clear weekly prize inputs - they should remain permanent
+            // DO NOT reset weekly totals - they should remain permanent
             
             // Save the changes
             this.saveData();
             
-            alert('Prize data cleared! Scores and money data preserved.');
+            alert('Prize data cleared! Weekly Prize Distribution Tracker and all other data preserved.');
         }
+    }
+
+    // Export prizes data to JSON file
+    exportPrizesData() {
+        const prizesData = {
+            prizeValues: this.prizeValues,
+            prizeWinners: this.prizeWinners,
+            weeklyPrizeData: this.weeklyPrizeData,
+            exportDate: new Date().toISOString(),
+            exportVersion: '1.1'
+        };
+        
+        // Create and download JSON file
+        const dataStr = JSON.stringify(prizesData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `swindle-prizes-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show export confirmation
+        const exportBtn = document.getElementById('exportPrizesData');
+        const originalText = exportBtn.textContent;
+        const originalBg = exportBtn.style.background;
+        exportBtn.textContent = '✅ Exported!';
+        exportBtn.style.background = '#20c997';
+        
+        setTimeout(() => {
+            exportBtn.textContent = originalText;
+            exportBtn.style.background = originalBg;
+        }, 2000);
+    }
+
+    // Import prizes data from JSON file
+    importPrizesData() {
+        const fileInput = document.getElementById('importPrizesFile');
+        fileInput.click();
+    }
+
+    // Handle file selection for import
+    handleImportFile(file) {
+        if (!file) {
+            alert('No file selected!');
+            return;
+        }
+        
+        if (file.type !== 'application/json' && !file.name.toLowerCase().endsWith('.json')) {
+            alert('Please select a valid JSON file!');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const importedData = JSON.parse(e.target.result);
+                
+                // Validate imported data structure
+                if (!importedData.prizeValues && !importedData.prizeWinners && !importedData.weeklyPrizeData) {
+                    throw new Error('Invalid file format: Missing prize data');
+                }
+                
+                // Confirm import with user
+                const confirmMessage = `Import prizes data from ${file.name}?\n\nThis will replace current prize values, winner names, and Weekly Prize Distribution Tracker data.`;
+                
+                if (confirm(confirmMessage)) {
+                    // Import prize values
+                    if (importedData.prizeValues) {
+                        this.prizeValues = { ...importedData.prizeValues };
+                    }
+                    
+                    // Import prize winners
+                    if (importedData.prizeWinners) {
+                        this.prizeWinners = { ...importedData.prizeWinners };
+                    }
+                    
+                    // Import weekly prize data
+                    if (importedData.weeklyPrizeData) {
+                        this.weeklyPrizeData = { ...importedData.weeklyPrizeData };
+                    }
+                    
+                    // Update UI with imported data
+                    this.populatePrizeValues();
+                    this.populatePrizeWinners();
+                    this.populateWeeklyPrizeData();
+                    
+                    // Save the imported data
+                    this.saveData();
+                    
+                    // Show import confirmation
+                    const importBtn = document.getElementById('importPrizesData');
+                    const originalText = importBtn.textContent;
+                    const originalBg = importBtn.style.background;
+                    importBtn.textContent = '✅ Imported!';
+                    importBtn.style.background = '#20c997';
+                    
+                    setTimeout(() => {
+                        importBtn.textContent = originalText;
+                        importBtn.style.background = originalBg;
+                    }, 2000);
+                    
+                    alert('Prizes data imported successfully!');
+                } else {
+                    alert('Import cancelled.');
+                }
+                
+            } catch (error) {
+                alert(`Error importing file: ${error.message}`);
+                console.error('Import error:', error);
+            }
+        };
+        
+        reader.onerror = () => {
+            alert('Error reading file!');
+        };
+        
+        reader.readAsText(file);
     }
 
     // Tab switching functionality
@@ -1340,7 +1489,7 @@ class PGASwindle {
                            data-player="${playerNum}" 
                            data-category="weeklyWins"
                            value=""
-                           placeholder="${moneyData.weeklyWins > 0 ? `Total: £${moneyData.weeklyWins.toFixed(2)}` : 'Enter amount (e.g. 20 or £20)'}">
+                           placeholder="${moneyData.weeklyWins > 0 ? `Total: £${moneyData.weeklyWins.toFixed(2)}` : 'Enter amount (e.g. 20, -10 for correction)'}"
                 </td>
                 <td>
                     <input type="text" 
@@ -1348,7 +1497,7 @@ class PGASwindle {
                            data-player="${playerNum}" 
                            data-category="tournamentPrizes"
                            value=""
-                           placeholder="${moneyData.tournamentPrizes > 0 ? `Total: £${moneyData.tournamentPrizes.toFixed(2)}` : 'Enter amount (e.g. 20 or £20)'}">
+                           placeholder="${moneyData.tournamentPrizes > 0 ? `Total: £${moneyData.tournamentPrizes.toFixed(2)}` : 'Enter amount (e.g. 50, -25 for correction)'}"
                 </td>
                 <td class="money-total">£${totalWon.toFixed(2)}</td>
             </tr>
@@ -1366,11 +1515,12 @@ class PGASwindle {
             return;
         }
         
-        // Parse amount by removing currency symbols and non-numeric characters (except decimal point)
-        const cleanValue = inputValue.replace(/[£$€,]/g, '').replace(/[^0-9.]/g, '');
+        // Parse amount - handle negative values for corrections
+        // Remove currency symbols but keep minus sign and decimal point
+        const cleanValue = inputValue.replace(/[£$€,]/g, '').replace(/[^0-9.-]/g, '');
         const amount = parseFloat(cleanValue);
         
-        // Check for valid number
+        // Check for valid number (including negative values)
         if (isNaN(amount) || cleanValue === '') {
             input.value = ''; // Clear invalid input
             return;
@@ -1381,9 +1531,14 @@ class PGASwindle {
             this.moneyWon[player] = { weeklyWins: 0, tournamentPrizes: 0 };
         }
         
-        if (amount > 0) {
-            // Add the new amount to the existing total (accumulate)
+        if (amount !== 0) {
+            // Add the amount to the existing total (can be positive or negative)
             this.moneyWon[player][category] += amount;
+            
+            // Ensure the total doesn't go below zero
+            if (this.moneyWon[player][category] < 0) {
+                this.moneyWon[player][category] = 0;
+            }
             
             // Clear the input field for next entry
             input.value = '';
@@ -1391,18 +1546,26 @@ class PGASwindle {
             // Update placeholder to show current total
             input.placeholder = `Total: £${this.moneyWon[player][category].toFixed(2)}`;
             
-            // Show brief confirmation of the amount added
+            // Show brief confirmation with different colors for positive/negative amounts
             const originalBg = input.style.backgroundColor;
             const originalBorder = input.style.border;
-            input.style.backgroundColor = '#d4edda';
-            input.style.border = '2px solid #28a745';
+            
+            if (amount > 0) {
+                // Positive amount - green confirmation
+                input.style.backgroundColor = '#d4edda';
+                input.style.border = '2px solid #28a745';
+            } else {
+                // Negative amount - orange/yellow confirmation for correction
+                input.style.backgroundColor = '#fff3cd';
+                input.style.border = '2px solid #ffc107';
+            }
             
             setTimeout(() => {
                 input.style.backgroundColor = originalBg;
                 input.style.border = originalBorder;
             }, 1000);
-        } else if (amount === 0) {
-            // Reset the total to 0
+        } else {
+            // amount === 0: Reset the total to 0
             this.moneyWon[player][category] = 0;
             input.value = '';
             input.placeholder = 'Total: £0.00';
@@ -2401,6 +2564,199 @@ class PGASwindle {
     }
     
     // === END LEADERBOARD FUNCTIONALITY ===
+
+    // === CELL COLOR CUSTOMIZATION ===
+    
+    showColorPicker(inputElement, x, y) {
+        // Remove any existing color picker
+        const existingPicker = document.getElementById('colorPicker');
+        if (existingPicker) {
+            existingPicker.remove();
+        }
+        
+        const player = inputElement.dataset.player;
+        const week = inputElement.dataset.week;
+        const cellKey = `${player}-${week}`;
+        
+        // Get current cell color or default
+        const currentColor = this.cellColors[cellKey] || '#ffffff';
+        
+        // Create color picker HTML
+        const colorPickerHTML = `
+            <div id="colorPicker" style="
+                position: absolute;
+                left: ${x}px;
+                top: ${y}px;
+                background: white;
+                border: 2px solid #ccc;
+                border-radius: 8px;
+                padding: 10px;
+                z-index: 1000;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                font-family: Arial, sans-serif;
+                min-width: 180px;
+            ">
+                <div style="font-size: 12px; font-weight: bold; margin-bottom: 8px; color: #333;">
+                    Cell Color for Player ${player}, Week ${week}
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+                    <div class="color-option" data-color="#ffffff" style="width: 25px; height: 25px; background: #ffffff; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="White (Default)"></div>
+                    <div class="color-option" data-color="#ffeb3b" style="width: 25px; height: 25px; background: #ffeb3b; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="Yellow"></div>
+                    <div class="color-option" data-color="#4caf50" style="width: 25px; height: 25px; background: #4caf50; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="Green"></div>
+                    <div class="color-option" data-color="#2196f3" style="width: 25px; height: 25px; background: #2196f3; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="Blue"></div>
+                    <div class="color-option" data-color="#ff9800" style="width: 25px; height: 25px; background: #ff9800; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="Orange"></div>
+                    <div class="color-option" data-color="#f44336" style="width: 25px; height: 25px; background: #f44336; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="Red"></div>
+                    <div class="color-option" data-color="#e91e63" style="width: 25px; height: 25px; background: #e91e63; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="Pink"></div>
+                    <div class="color-option" data-color="#9c27b0" style="width: 25px; height: 25px; background: #9c27b0; border: 2px solid #ccc; cursor: pointer; border-radius: 4px;" title="Purple"></div>
+                </div>
+                
+                <div style="display: flex; gap: 5px; align-items: center; margin-bottom: 10px;">
+                    <label style="font-size: 11px; color: #666;">Custom:</label>
+                    <input type="color" id="customColorInput" value="${currentColor}" style="width: 30px; height: 25px; border: none; cursor: pointer;">
+                </div>
+                
+                <div style="display: flex; gap: 5px; justify-content: space-between;">
+                    <button id="clearCellColor" style="
+                        background: #666;
+                        color: white;
+                        border: none;
+                        padding: 5px 8px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 10px;
+                    ">Clear</button>
+                    <button id="applyCellColor" style="
+                        background: #4caf50;
+                        color: white;
+                        border: none;
+                        padding: 5px 12px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 10px;
+                    ">Apply</button>
+                </div>
+            </div>
+        `;
+        
+        // Add color picker to page
+        document.body.insertAdjacentHTML('beforeend', colorPickerHTML);
+        
+        const colorPicker = document.getElementById('colorPicker');
+        const customColorInput = document.getElementById('customColorInput');
+        let selectedColor = currentColor;
+        
+        // Highlight current color
+        this.highlightSelectedColor(selectedColor);
+        
+        // Color option click handlers
+        colorPicker.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', () => {
+                selectedColor = option.dataset.color;
+                customColorInput.value = selectedColor;
+                this.highlightSelectedColor(selectedColor);
+            });
+        });
+        
+        // Custom color input handler
+        customColorInput.addEventListener('input', () => {
+            selectedColor = customColorInput.value;
+            this.highlightSelectedColor(selectedColor);
+        });
+        
+        // Clear button handler
+        document.getElementById('clearCellColor').addEventListener('click', () => {
+            delete this.cellColors[cellKey];
+            inputElement.style.backgroundColor = '';
+            colorPicker.remove();
+            this.saveData();
+        });
+        
+        // Apply button handler
+        document.getElementById('applyCellColor').addEventListener('click', () => {
+            console.log('Applying color:', selectedColor, 'to cell:', cellKey);
+            console.log('Input element:', inputElement);
+            console.log('Current element classes:', inputElement.className);
+            console.log('Current element style before:', inputElement.style.cssText);
+            
+            if (selectedColor === '#ffffff' || selectedColor === '#FFFFFF') {
+                // If white (default), remove the custom color
+                delete this.cellColors[cellKey];
+                inputElement.style.backgroundColor = '';
+                inputElement.style.removeProperty('background-color');
+                inputElement.removeAttribute('data-custom-color');
+                console.log('Removed color for cell:', cellKey);
+            } else {
+                this.cellColors[cellKey] = selectedColor;
+                // Use multiple approaches to ensure the color is set
+                inputElement.style.setProperty('background-color', selectedColor, 'important');
+                inputElement.setAttribute('data-custom-color', 'true');
+                console.log('Set background-color to:', selectedColor, 'for cell:', cellKey);
+                console.log('Element style after setting:', inputElement.style.cssText);
+                console.log('Computed style:', getComputedStyle(inputElement).backgroundColor);
+            }
+            
+            colorPicker.remove();
+            this.saveData();
+        });
+        
+        // Position the color picker to stay within viewport
+        this.positionColorPicker(colorPicker, x, y);
+    }
+    
+    highlightSelectedColor(selectedColor) {
+        // Remove previous highlights
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.style.border = '2px solid #ccc';
+        });
+        
+        // Highlight the selected color
+        const selectedOption = document.querySelector(`[data-color="${selectedColor}"]`);
+        if (selectedOption) {
+            selectedOption.style.border = '2px solid #000';
+        }
+    }
+    
+    positionColorPicker(colorPicker, x, y) {
+        const rect = colorPicker.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        let newX = x;
+        let newY = y;
+        
+        // Adjust X position if picker would go off-screen
+        if (x + rect.width > windowWidth) {
+            newX = windowWidth - rect.width - 10;
+        }
+        
+        // Adjust Y position if picker would go off-screen
+        if (y + rect.height > windowHeight) {
+            newY = y - rect.height - 10;
+        }
+        
+        // Ensure picker doesn't go off the top or left
+        newX = Math.max(10, newX);
+        newY = Math.max(10, newY);
+        
+        colorPicker.style.left = newX + 'px';
+        colorPicker.style.top = newY + 'px';
+    }
+    
+    applyCellColors() {
+        // Apply saved cell colors to score inputs
+        Object.entries(this.cellColors).forEach(([cellKey, color]) => {
+            const [player, week] = cellKey.split('-');
+            const input = document.querySelector(`input[data-player="${player}"][data-week="${week}"]`);
+            if (input && input.classList.contains('score-input')) {
+                input.style.setProperty('background-color', color, 'important');
+                input.setAttribute('data-custom-color', 'true');
+                console.log('Applied saved color:', color, 'to cell:', cellKey);
+            }
+        });
+    }
+    
+    // === END CELL COLOR CUSTOMIZATION ===
 
     // Scorecard functionality removed
     

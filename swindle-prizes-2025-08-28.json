@@ -1,0 +1,400 @@
+{
+  "prizeValues": {},
+  "prizeWinners": {},
+  "weeklyPrizeData": {
+    "2": {
+      "prizePot": 10,
+      "first": 6,
+      "second": 4,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "3": {
+      "prizePot": 15,
+      "first": 9,
+      "second": 6,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "4": {
+      "prizePot": 20,
+      "first": 12,
+      "second": 8,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "5": {
+      "prizePot": 25,
+      "first": 15,
+      "second": 10,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "6": {
+      "prizePot": 30,
+      "first": 18,
+      "second": 12,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "7": {
+      "prizePot": 35,
+      "first": 21,
+      "second": 14,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "8": {
+      "prizePot": 40,
+      "first": 24,
+      "second": 16,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "9": {
+      "prizePot": 45,
+      "first": 27,
+      "second": 18,
+      "third": 0,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "10": {
+      "prizePot": 50,
+      "first": 25,
+      "second": 15,
+      "third": 10,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "11": {
+      "prizePot": 55,
+      "first": 28,
+      "second": 17,
+      "third": 10,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "12": {
+      "prizePot": 60,
+      "first": 30,
+      "second": 18,
+      "third": 12,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "13": {
+      "prizePot": 65,
+      "first": 33,
+      "second": 20,
+      "third": 12,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "14": {
+      "prizePot": 70,
+      "first": 35,
+      "second": 21,
+      "third": 14,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "15": {
+      "prizePot": 75,
+      "first": 38,
+      "second": 23,
+      "third": 1400,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "16": {
+      "prizePot": 80,
+      "first": 40,
+      "second": 24,
+      "third": 16,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "17": {
+      "prizePot": 85,
+      "first": 43,
+      "second": 26,
+      "third": 16,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "18": {
+      "prizePot": 90,
+      "first": 45,
+      "second": 27,
+      "third": 18,
+      "fourth": 0,
+      "fifth": 0
+    },
+    "19": {
+      "prizePot": 95,
+      "first": 43,
+      "second": 26,
+      "third": 16,
+      "fourth": 10,
+      "fifth": 0
+    },
+    "20": {
+      "prizePot": 100,
+      "first": 45,
+      "second": 27,
+      "third": 17,
+      "fourth": 11,
+      "fifth": 0
+    },
+    "21": {
+      "prizePot": 105,
+      "first": 47,
+      "second": 28,
+      "third": 18,
+      "fourth": 12,
+      "fifth": 0
+    },
+    "22": {
+      "prizePot": 110,
+      "first": 50,
+      "second": 30,
+      "third": 19,
+      "fourth": 11,
+      "fifth": 0
+    },
+    "23": {
+      "prizePot": 115,
+      "first": 52,
+      "second": 31,
+      "third": 20,
+      "fourth": 12,
+      "fifth": 0
+    },
+    "24": {
+      "prizePot": 120,
+      "first": 54,
+      "second": 32,
+      "third": 20,
+      "fourth": 14,
+      "fifth": 0
+    },
+    "25": {
+      "prizePot": 125,
+      "first": 56,
+      "second": 34,
+      "third": 21,
+      "fourth": 14,
+      "fifth": 0
+    },
+    "26": {
+      "prizePot": 130,
+      "first": 59,
+      "second": 35,
+      "third": 22,
+      "fourth": 14,
+      "fifth": 0
+    },
+    "27": {
+      "prizePot": 135,
+      "first": 61,
+      "second": 36,
+      "third": 23,
+      "fourth": 15,
+      "fifth": 0
+    },
+    "28": {
+      "prizePot": 140,
+      "first": 59,
+      "second": 35,
+      "third": 22,
+      "fourth": 15,
+      "fifth": 0
+    },
+    "29": {
+      "prizePot": 145,
+      "first": 61,
+      "second": 36,
+      "third": 22,
+      "fourth": 15,
+      "fifth": 0
+    },
+    "30": {
+      "prizePot": 150,
+      "first": 63,
+      "second": 38,
+      "third": 23,
+      "fourth": 16,
+      "fifth": 0
+    },
+    "31": {
+      "prizePot": 155,
+      "first": 65,
+      "second": 39,
+      "third": 24,
+      "fourth": 16,
+      "fifth": 0
+    },
+    "32": {
+      "prizePot": 160,
+      "first": 67,
+      "second": 40,
+      "third": 25,
+      "fourth": 17,
+      "fifth": 0
+    },
+    "33": {
+      "prizePot": 165,
+      "first": 69,
+      "second": 41,
+      "third": 25,
+      "fourth": 17,
+      "fifth": 0
+    },
+    "34": {
+      "prizePot": 170,
+      "first": 71,
+      "second": 43,
+      "third": 26,
+      "fourth": 18,
+      "fifth": 0
+    },
+    "35": {
+      "prizePot": 175,
+      "first": 74,
+      "second": 44,
+      "third": 27,
+      "fourth": 18,
+      "fifth": 0
+    },
+    "36": {
+      "prizePot": 180,
+      "first": 76,
+      "second": 45,
+      "third": 28,
+      "fourth": 19,
+      "fifth": 0
+    },
+    "37": {
+      "prizePot": 185,
+      "first": 78,
+      "second": 46,
+      "third": 29,
+      "fourth": 19,
+      "fifth": 0
+    },
+    "38": {
+      "prizePot": 190,
+      "first": 80,
+      "second": 48,
+      "third": 29,
+      "fourth": 20,
+      "fifth": 0
+    },
+    "39": {
+      "prizePot": 195,
+      "first": 82,
+      "second": 49,
+      "third": 30,
+      "fourth": 20,
+      "fifth": 0
+    },
+    "40": {
+      "prizePot": 200,
+      "first": 84,
+      "second": 50,
+      "third": 31,
+      "fourth": 21,
+      "fifth": 0
+    },
+    "41": {
+      "prizePot": 205,
+      "first": 85,
+      "second": 51,
+      "third": 32,
+      "fourth": 22,
+      "fifth": 0
+    },
+    "42": {
+      "prizePot": 210,
+      "first": 86,
+      "second": 52,
+      "third": 33,
+      "fourth": 23,
+      "fifth": 0
+    },
+    "43": {
+      "prizePot": 215,
+      "first": 87,
+      "second": 53,
+      "third": 34,
+      "fourth": 24,
+      "fifth": 0
+    },
+    "44": {
+      "prizePot": 220,
+      "first": 88,
+      "second": 54,
+      "third": 35,
+      "fourth": 25,
+      "fifth": 0
+    },
+    "45": {
+      "prizePot": 225,
+      "first": 89,
+      "second": 55,
+      "third": 36,
+      "fourth": 26,
+      "fifth": 0
+    },
+    "46": {
+      "prizePot": 230,
+      "first": 90,
+      "second": 56,
+      "third": 37,
+      "fourth": 27,
+      "fifth": 0
+    },
+    "47": {
+      "prizePot": 235,
+      "first": 91,
+      "second": 57,
+      "third": 38,
+      "fourth": 28,
+      "fifth": 0
+    },
+    "48": {
+      "prizePot": 240,
+      "first": 92,
+      "second": 58,
+      "third": 39,
+      "fourth": 29,
+      "fifth": 0
+    },
+    "49": {
+      "prizePot": 245,
+      "first": 93,
+      "second": 59,
+      "third": 40,
+      "fourth": 30,
+      "fifth": 0
+    },
+    "50": {
+      "prizePot": 250,
+      "first": 94,
+      "second": 60,
+      "third": 41,
+      "fourth": 31,
+      "fifth": 0
+    }
+  },
+  "exportDate": "2025-08-28T18:04:48.174Z",
+  "exportVersion": "1.1"
+}

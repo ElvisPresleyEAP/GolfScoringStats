@@ -257,13 +257,25 @@ tbody tr:hover {
 .best-score {
     font-weight: bold !important;
     color: #dc3545 !important;
+}
+
+.best-score:not([style*="background-color"]) {
     background: #ffe6e6 !important;
 }
 
 .other-score {
     font-weight: bold !important;
     color: #000 !important;
+}
+
+.other-score:not([style*="background-color"]) {
     background: #f8f9fa !important;
+}
+
+/* Custom cell color override */
+.score-input[data-custom-color="true"] {
+    /* This will be overridden by inline styles, but ensures proper priority */
+    background: var(--custom-color) !important;
 }
 
 .date-input {

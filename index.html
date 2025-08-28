@@ -204,8 +204,11 @@
                     <h3>🏆 Swindle Prize Structure</h3>
                     <p>Set custom prize amounts for each winning position. Enter any value (e.g., £25, 50, $30) and the total prize pool will be calculated automatically.</p>
                     <div style="text-align: center; margin-bottom: 15px;">
+                        <button id="exportPrizesData" style="background: #28a745; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-right: 10px;">📤 Export Prices</button>
+                        <button id="importPrizesData" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-right: 10px;">📥 Import Prices</button>
                         <button id="clearPrizesData" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-right: 10px;">🗑️ Clear Prizes Data</button>
-                        <span style="color: black; font-size: 11px;">This will clear all prize values and weekly prize data only</span>
+                        <input type="file" id="importPrizesFile" accept=".json" style="display: none;">
+                        <span style="color: black; font-size: 11px; display: block; margin-top: 5px;">Export/Import prize values and winner names. Weekly Prize Distribution Tracker data will be preserved.</span>
                     </div>
                 </div>
                 
@@ -325,6 +328,114 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Enhanced tab initialization for GitHub Pages compatibility
+        let tabsInitialized = false;
+        
+        function initializeTabs() {
+            // Prevent double initialization
+            if (tabsInitialized) {
+                console.log('Tabs already initialized, skipping...');
+                return;
+            }
+            
+            console.log('Initializing tabs for GitHub Pages...');
+            
+            // Remove any existing event listeners first
+            document.querySelectorAll('.tab-button').forEach(button => {
+                // Clone to remove all event listeners
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+            });
+            
+            // Add fresh click handlers to tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const targetTab = this.dataset.tab;
+                    console.log('Tab clicked (inline):', targetTab);
+                    
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab and its content
+                    this.classList.add('active');
+                    const targetContent = document.getElementById(targetTab + 'Tab');
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                        console.log('Tab activated (inline):', targetTab);
+                    } else {
+                        console.error('Tab content not found:', targetTab + 'Tab');
+                    }
+                    
+                    // If main app is loaded, call its switchTab method too
+                    if (window.pgaSwindle && typeof window.pgaSwindle.switchTab === 'function') {
+                        console.log('Calling main app switchTab method');
+                        window.pgaSwindle.switchTab(targetTab);
+                    }
+                });
+            });
+            
+            // Ensure the scores tab is active by default
+            const scoresTab = document.getElementById('scoresTab');
+            const scoresButton = document.querySelector('.tab-button[data-tab="scores"]');
+            
+            if (scoresTab && scoresButton) {
+                // Clear all active states first
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Set scores tab as active
+                scoresTab.classList.add('active');
+                scoresButton.classList.add('active');
+                console.log('Default scores tab activated (inline)');
+            }
+            
+            tabsInitialized = true;
+            console.log('Tab initialization complete (inline)');
+        }
+        
+        // Global function to reset tabs if needed
+        window.resetTabs = function() {
+            tabsInitialized = false;
+            initializeTabs();
+        };
+        
+        // Initialize tabs immediately when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initializeTabs, 50);
+            });
+        } else {
+            setTimeout(initializeTabs, 50);
+        }
+        
+        // Also try to initialize after various delays as fallbacks
+        setTimeout(initializeTabs, 200);
+        setTimeout(initializeTabs, 500);
+        setTimeout(initializeTabs, 1000);
+        
+        // Re-initialize when the main app loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                if (window.pgaSwindle) {
+                    console.log('Main app detected, ensuring tabs work');
+                    tabsInitialized = false;
+                    initializeTabs();
+                }
+            }, 1500);
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
